@@ -46,6 +46,7 @@ SANATIZE & VALIDATE JSON DATA
 */
 function whiteFilterStr(inputStr, whiteListStr) {
   "use strict";
+--TvL--
 }
 
 /**
@@ -68,20 +69,6 @@ function filterValidateIso8601(inputStr) {
 */
 function filterValidateMeetingArray(meetingArray) {
   "use strict";
-}
-
-SORT AGENDA
-
-/**
-* @function
-* @name sortAgenda
-* @description Sort the meetings on date-time, of the 'start'key
-* @param {array} agendaArr - Agenda array to be sorted
-* @return {array} agendaArr - Sorted agenda array
-*/
-function sortAgenda(agendaArr) {
-  "use strict";
---TvL--
 }
 
 EDIT OR ADD MEETING
