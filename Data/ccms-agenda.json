@@ -1,46 +1,46 @@
 [
 {
-"start":"2015-09-08T16:00:00",
-"end":"2015-09-08T18:00:00",
-"onderwerp":"Energie monitor",
-"subject":"Energy monitor",
-"groep":"Microcontrollers",
-"group":"Micro Controllers",
-"location":"QCC2",
-"contact":"KP",
-"email":"ucontrollers@ccms-best.nl"
+start:"2015-09-08T16:00:00",
+end:"2015-09-08T18:00:00",
+onderwerp:"Energie monitor",
+subject:"Energy monitor",
+groep:"Microcontrollers",
+group:"Micro Controllers",
+location:"QCC2",
+contact:"KP",
+email:"ucontrollers@ccms-best.nl"
 },
 {
-"start":"2016-09-11T16:00:00",
-"end":"2016-09-11T18:00:00",
-"onderwerp":"Bouwen van een PHP applicatie",
-"subject":"Building a PHP application",
-"groep":"Websites",
-"group":"Websites",
-"location":"QCC2",
-"contact":"TL",
-"email":"websites@ccms-best.nl"
+start:"2016-09-11T16:00:00",
+end:"2016-09-11T18:00:00",
+onderwerp:"Bouwen van een PHP applicatie",
+subject:"Building a PHP application",
+groep:"Websites",
+group:"Websites",
+location:"QCC2",
+contact:"TL",
+email:"websites@ccms-best.nl"
 },
 {
-"start":"2016-09-24T16:15:00",
-"end":"2016-09-24T18:15:00",
-"onderwerp":"",
-"subject":"",
-"groep":"Videoclub",
-"group":"Video Club",
-"location":"QCC2",
-"contact":"PW",
-"email":"video@ccms-best.nl"
+start:"2016-09-24T16:15:00",
+end:"2016-09-24T18:15:00",
+onderwerp:"",
+subject:"",
+groep:"Videoclub",
+group:"Video Club",
+location:"QCC2",
+contact:"PW",
+email:"video@ccms-best.nl"
 },
 {
-"start":"2016-09-25T16:00:00",
-"end":"2016-09-25T18:00:00",
-"onderwerp":"Bouwen van een PHP applicatie",
-"subject":"Building a PHP application",
-"groep":"Websites",
-"group":"Websites",
-"location":"QCC2",
-"contact":"TL",
-"email":"websites@ccms-best.nl"
+start:"2016-09-25T16:00:00",
+end:"2016-09-25T18:00:00",
+onderwerp:"Bouwen van een PHP applicatie",
+subject:"Building a PHP application",
+groep:"Websites",
+group:"Websites",
+location:"QCC2",
+contact:"TL",
+email:"websites@ccms-best.nl"
 }
 ]
