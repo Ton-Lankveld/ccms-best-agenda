@@ -2,7 +2,7 @@
  * @name Agenda Editor
  * @description Edit the JSON file with the data of the Computer Club Medical Systems (CCMS) meetings.
  * @author Ton van Lankveld (ton.van.lankveld@philips.com)
- * @version 0.0.1 (2016-03-02)
+ * @version 0.0.1 (2016-03-04)
  *
  * Used library: jQuery 1.11.3 (http://jquery.com/)
  *               jQuery plugin: jquery.json 2.5.1 (https://github.com/krinkle/jquery-json)
@@ -58,11 +58,11 @@ function buildHTMLagendaTable(agendaArray) {
         HTMLrowEven = "";
         bttnEdit = "<button id=\'edit" + (i+1) +  "\' type=\'button\'>Wijzig</button>";
         bttnDel = "<button id=\'del" + (i+1) +  "\' type=\'button\'>Verwijder</button>";
-        meetingIso8601Str = (agendaArray[i]['start']).substring(0,10);
+        meetingIso8601Str = (agendaArray[i].start).substring(0,10);
         meetingDateStr = iso8601toStringNl(meetingIso8601Str);
-        SaST = (agendaArray[i]['start']).substring(11,16) + " - " + (agendaArray[i]['end']).substring(11,16) + " uur";
-        HTMLrowOdd = oTRoTDRS2 + bttnEdit + cTDoTDRS2 + meetingDateStr + cTDoTDRS2 + SaST + "</td><td>" + agendaArray[i]['onderwerp'] + "</td><td>" + agendaArray[i]['groep'] + cTDoTDRS2 + agendaArray[i]['location'] + "</td><td>" + agendaArray[i]['contact'] + cTDoTDRS2 + bttnDel + "</td></tr>\n";
-        HTMLrowEven = "<tr><td>" + agendaArray[i]['subject'] + "</td><td>" + agendaArray[i]['group'] + "</td><td>" + agendaArray[i]['email'] + "</td></tr>\n";
+        SaST = (agendaArray[i].start).substring(11,16) + " - " + (agendaArray[i].end).substring(11,16) + " uur";
+        HTMLrowOdd = oTRoTDRS2 + bttnEdit + cTDoTDRS2 + meetingDateStr + cTDoTDRS2 + SaST + "</td><td>" + agendaArray[i].onderwerp + "</td><td>" + agendaArray[i].groep + cTDoTDRS2 + agendaArray[i].location + "</td><td>" + agendaArray[i].contact + cTDoTDRS2 + bttnDel + "</td></tr>\n";
+        HTMLrowEven = "<tr><td>" + agendaArray[i].subject + "</td><td>" + agendaArray[i].group + "</td><td>" + agendaArray[i].email + "</td></tr>\n";
         HTMLtbody = HTMLtbody + HTMLrowOdd + HTMLrowEven;
         i += 1;
     }
@@ -91,6 +91,26 @@ function deleteMeeting(agendaArray, rowNumber) {
     }
     agendaArray.splice(rowNumber, 1);
     return agendaArray;
+}
+
+/**
+* @function
+* @name sortAgenda
+* @description Sort the meetings on date-time, of the 'start'key
+* @param {array} agendaArr - Agenda array to be sorted
+* @return {array} agendaArr - Sorted agenda array
+*/
+function sortAgenda(agendaArr) {
+    "use strict";
+    if (agendaArr.length < 2) {
+        return agendaArr;
+    }
+    agendaArr.sort(function(a, b) {
+        var dateA = new Date(a.start);
+        var dateB = new Date(b.start);
+        return dateA - dateB; //sort by date ascending
+    });
+    return agendaArr;
 }
 
 
