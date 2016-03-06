@@ -24,7 +24,7 @@ This application has 3 components:
 ..* PHP version > 5.3
 
 ### Editor
-To be specified.
+Under construction.
 
 ## Agenda Data
 All the data for the meetings are stored in a JSON file.
