@@ -19,7 +19,7 @@ CONNECTION TO SERVER
 * @return {array} agendaArr - Array with the meetings data. Empty if file not found
 */
 function loadJSONfromServer(jsonFilePath) {
-  "use strict";
+    "use strict";
 }
 
 /**
@@ -31,23 +31,10 @@ function loadJSONfromServer(jsonFilePath) {
 * @return {int} status - Responce code of the server
 */
 function saveJSONtoServer(agendaArr, jsonFilePath) {
-  "use strict";
+    "use strict";
 }
 
 SANATIZE & VALIDATE JSON DATA
-
-/**
-* @function
-* @name whiteFilterStr
-* @description Filter a string and allow only characters in the white list string
-* @param {string} inputStr - String to be sanatized
-* @param {string} whiteListStr - Allowed characters
-* @return {string} Sanatized string. If fault then empty
-*/
-function whiteFilterStr(inputStr, whiteListStr) {
-  "use strict";
---TvL--
-}
 
 /**
 * @function
@@ -57,7 +44,8 @@ function whiteFilterStr(inputStr, whiteListStr) {
 * @return {string} Correct ISO8601 string. If fault then empty
 */
 function filterValidateIso8601(inputStr) {
-  "use strict";
+    "use strict";
+--TvL--
 }
 
 /**
@@ -68,7 +56,7 @@ function filterValidateIso8601(inputStr) {
 * @return {array} The clean strings
 */
 function filterValidateMeetingArray(meetingArray) {
-  "use strict";
+    "use strict";
 }
 
 EDIT OR ADD MEETING
@@ -82,7 +70,7 @@ EDIT OR ADD MEETING
 * @return {array} editedArr - Agenda with one edited meeting
 */
 function editMeetingMode(agendaArr, rowNr) {
-  "use strict";
+    "use strict";
 }
 
 /**
@@ -93,7 +81,7 @@ function editMeetingMode(agendaArr, rowNr) {
 * @return {array} extendedAgendaArr - Agenda with one added meeting
 */
 function addMeetingMode(agendaArr) {
-  "use strict";
+    "use strict";
 }
 
 OTHERS
@@ -104,5 +92,6 @@ OTHERS
 * @description Main loop
 */
 function agendaEditor() {
-  "use strict";
+    "use strict";
+--TvL--
 }
