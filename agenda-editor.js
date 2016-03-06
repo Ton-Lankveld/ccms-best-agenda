@@ -2,7 +2,7 @@
  * @name Agenda Editor
  * @description Edit the JSON file with the data of the Computer Club Medical Systems (CCMS) meetings.
  * @author Ton van Lankveld (ton.van.lankveld@philips.com)
- * @version 0.0.1 (2016-03-04)
+ * @version 0.0.1 (2016-03-05)
  *
  * Used library: jQuery 1.11.3 (http://jquery.com/)
  *               jQuery plugin: jquery.json 2.5.1 (https://github.com/krinkle/jquery-json)
@@ -118,6 +118,25 @@ function sortAgenda(agendaArr) {
  * @name Main loop
  * @requires jQuery
  */
- "use strict";
- $('section.error').hide();
+    "use strict";
+    var JSONFILEPATH = "data/ccms-agenda.json";
+    var agendaArrayNotSave = [];
+    var agendaArrayLoadError = [{start:"",end:"",onderwerp:"De agenda wordt niet van de server opgehaald. Wacht een maar minuten en laad de Editor pagina dan opnieuw.<br>Als het probleem aanhoudt, neem dan contact op met Ton.",subject:"",groep:"",group:"",location:"",contact:"Ton van Lankveld",email:"websites@ccms-best.nl"}];
+    var agendaArrayChecked = [];
+    var meetingArray = [];
+    var HTMLstr = "";
+  
+    $("section.error").hide();
+    agendaArrayNotSave = loadJSONfromServer(JSONFILEPATH);
+    if (!agendaArrayNotSave) {
+        agendaArrayChecked = agendaArrayLoadError;
+    } else {
+        // Sanatize and validate uploaded agenda data
+        for (var i in agendaArrayNotSave) {
+            meetingArray = agendaArrayNotSave[i];
+            agendaArrayChecked[i] = filterValidateMeetingArray(meetingArray);
+        }
+    }
+    HTMLstr = buildHTMLagendaTable(agendaArrayChecked);
+    $("#meetings").prepend(HTMLstr);
  
