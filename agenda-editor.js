@@ -2,7 +2,7 @@
  * @name Agenda Editor
  * @description Edit the JSON file with the data of the Computer Club Medical Systems (CCMS) meetings.
  * @author Ton van Lankveld (ton.van.lankveld@philips.com)
- * @version 0.0.1 (2016-03-05)
+ * @version 0.0.1 (2016-03-06)
  *
  * Used library: jQuery 1.11.3 (http://jquery.com/)
  *               jQuery plugin: jquery.json 2.5.1 (https://github.com/krinkle/jquery-json)
@@ -26,6 +26,36 @@ function blinkServerIndicator(status) {
     }, 1000);
     }
     return;
+}
+
+/**
+* @function
+* @name whiteFilterStr
+* @description Filter a string and allow only characters in the white list string
+* @param {string} inputStr - String to be sanatized
+* @param {string} whiteListStr - Allowed characters
+* @return {string} cleanStr - Sanatized string. If fault then empty
+*/
+function whiteFilterStr(inputStr, whiteListStr) {
+    "use strict";
+    var cleanStr = "";
+    var inputStrLength = 0;
+    var character = "";
+    
+    if ((typeof inputStr !== "string") || (typeof whiteListStr !== "string")) {
+        return cleanStr;
+    }
+    inputStrLength = inputStr.length;
+    // Filter the input string with the whitelist
+    var i = 0;
+    while (i < inputStrLength) {
+        character = inputStr.charAt(i);
+        if (whiteListStr.indexOf(character) !== -1) {
+            cleanStr += character;
+        }
+        i += 1;
+    }
+    return cleanStr;
 }
 
 /**
@@ -119,7 +149,7 @@ function sortAgenda(agendaArr) {
  * @requires jQuery
  */
     "use strict";
-    var JSONFILEPATH = "data/ccms-agenda.json";
+    var JSONFILEPATH = "path/to/agenda.json";
     var agendaArrayNotSave = [];
     var agendaArrayLoadError = [{start:"",end:"",onderwerp:"De agenda wordt niet van de server opgehaald. Wacht een maar minuten en laad de Editor pagina dan opnieuw.<br>Als het probleem aanhoudt, neem dan contact op met Ton.",subject:"",groep:"",group:"",location:"",contact:"Ton van Lankveld",email:"websites@ccms-best.nl"}];
     var agendaArrayChecked = [];
@@ -139,4 +169,5 @@ function sortAgenda(agendaArr) {
     }
     HTMLstr = buildHTMLagendaTable(agendaArrayChecked);
     $("#meetings").prepend(HTMLstr);
+ 
  
