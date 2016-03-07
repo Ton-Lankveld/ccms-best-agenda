@@ -38,18 +38,6 @@ SANATIZE & VALIDATE JSON DATA
 
 /**
 * @function
-* @name filterValidateIso8601
-* @description Filter and validate a string with local date-time data in ISO8601 format
-* @param {string} inputStr - ISO8601 data-time data
-* @return {string} Correct ISO8601 string. If fault then empty
-*/
-function filterValidateIso8601(inputStr) {
-    "use strict";
---TvL--
-}
-
-/**
-* @function
 * @name filterValidateMeetingArray
 * @description Filter and validate the strings of one meeting
 * @param {array} meetingArray - The meeting parameters with input strings of: start, end, onderwerp, subject, groep, group, location, contact and email
@@ -57,6 +45,7 @@ function filterValidateIso8601(inputStr) {
 */
 function filterValidateMeetingArray(meetingArray) {
     "use strict";
+--TvL--
 }
 
 EDIT OR ADD MEETING
@@ -93,5 +82,4 @@ OTHERS
 */
 function agendaEditor() {
     "use strict";
---TvL--
 }
