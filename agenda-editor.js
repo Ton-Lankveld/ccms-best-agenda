@@ -2,7 +2,7 @@
  * @name Agenda Editor
  * @description Edit the JSON file with the data of the Computer Club Medical Systems (CCMS) meetings.
  * @author Ton van Lankveld (ton.van.lankveld@philips.com)
- * @version 0.0.1 (2016-03-06)
+ * @version 0.0.1 (2016-03-07)
  *
  * Used library: jQuery 1.11.3 (http://jquery.com/)
  *               jQuery plugin: jquery.json 2.5.1 (https://github.com/krinkle/jquery-json)
@@ -56,6 +56,30 @@ function whiteFilterStr(inputStr, whiteListStr) {
         i += 1;
     }
     return cleanStr;
+}
+
+/**
+* @function
+* @name filterValidateIso8601
+* @description Filter and validate a string with local date-time data in ISO8601 format
+* @requires whiteFilterStr()
+* @param {string} inputStr - ISO8601 data-time data
+* @return {string} iso8601Str - Correct ISO8601 string. If fault then empty
+*/
+function filterValidateIso8601(inputStr) {
+    "use strict";
+    var iso8601Str = "";
+    var WHITELIST = "0123456789-:T";
+    var ISO8601PATTERN = /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/;  // Format: yyyy-mm-ddThh:mm:ss
+    if (typeof inputStr !== "string") {
+        return iso8601Str;
+    }
+    iso8601Str = whiteFilterStr(inputStr, WHITELIST);
+    var result = iso8601Str.match(ISO8601PATTERN);
+    if (result === null) {
+        iso8601Str = "";
+    }
+    return iso8601Str;
 }
 
 /**
