@@ -2,7 +2,7 @@
  * @name Agenda Editor
  * @description Edit the JSON file with the data of the Computer Club Medical Systems (CCMS) meetings.
  * @author Ton van Lankveld (ton.van.lankveld@philips.com)
- * @version 0.0.1 (2016-03-07)
+ * @version 0.0.1 (2016-03-24)
  *
  * Used library: jQuery 1.11.3 (http://jquery.com/)
  *               jQuery plugin: jquery.json 2.5.1 (https://github.com/krinkle/jquery-json)
@@ -80,6 +80,87 @@ function filterValidateIso8601(inputStr) {
         iso8601Str = "";
     }
     return iso8601Str;
+}
+
+/**
+* @function
+* @name filterValidateMeetingObject
+* @description Filter and validate the strings of one meeting
+* @requires filterValidateIso8601()
+* @param {array} meetingObj - The meeting parameters with input strings of: start, end, onderwerp, subject, groep, group, location, contact and email
+* @return {array} cleanObj - The clean strings
+*/
+function filterValidateMeetingObject(meetingObj) {
+    "use strict";
+    var cleanObj = {
+        start: "",
+        end: "",
+        onderwerp: "",
+        subject: "",
+        groep: "",
+        group: "",
+        location: "",
+        contact: "",
+        email: ""
+    };
+    var REPATTERN = /<(?:.|\n)*?>/gm; // Regular Expresion pattern for HTML/XML tags
+    
+    if (meetingObj.hasOwnProperty('start')) {
+        var startClean = filterValidateIso8601(meetingObj.start);
+        if ((startClean !== "") && (startClean !== NaN) && (startClean !== undefined)) {
+            cleanObj.start = startClean;
+        }
+    }
+    if (meetingObj.hasOwnProperty('end')) {
+        var endClean = filterValidateIso8601(meetingObj.end);
+        if (endClean !== "") {
+            cleanObj.end = endClean;
+        }
+    }
+    if (meetingObj.hasOwnProperty('onderwerp')) {
+        var onderwerpClean = meetingObj.onderwerp.replace(REPATTERN, '');  // Must find regex pattern wich allow for <a> and <br>
+        if (onderwerpClean !== "") {
+            cleanObj.onderwerp = onderwerpClean;
+        }
+    }
+    if (meetingObj.hasOwnProperty('subject')) {
+        var subjectClean = meetingObj.subject.replace(REPATTERN, '');  // Must find regex pattern wich allow for <a> and <br>
+        if (subjectClean !== "") {
+            cleanObj.subject = subjectClean;
+        }
+    }
+    if (meetingObj.hasOwnProperty('groep')) {
+        var groepClean = meetingObj.groep.replace(REPATTERN, '');
+        if (groepClean !== "") {
+            cleanObj.groep = groepClean;
+        }
+    }
+    if (meetingObj.hasOwnProperty('group')) {
+        var groupClean = meetingObj.group.replace(REPATTERN, '');
+        if (groupClean !== "") {
+            cleanObj.group = groupClean;
+        }
+    }
+    if (meetingObj.hasOwnProperty('location')) {
+        var locationClean = meetingObj.location.replace(REPATTERN, '');
+        if (locationClean !== "") {
+            cleanObj.location = locationClean;
+        }
+    }
+    if (meetingObj.hasOwnProperty('contact')) {
+        var contactClean = meetingObj.contact.replace(REPATTERN, '');
+        if (contactClean !== "") {
+            cleanObj.contact = contactClean;
+        }
+    }
+    if (meetingObj.hasOwnProperty('email')) {
+        var emailStr = meetingObj.email;
+        var result = emailStr.match(/^[A-Z0-9+_.-]+@[A-Z0-9.-]+$/i); // Check for valid e-mail address
+        if (result !== null) {
+            cleanObj.email = emailStr;
+        }
+    }
+    return cleanObj;
 }
 
 /**
@@ -169,9 +250,9 @@ function sortAgenda(agendaArr) {
 
 
 /**
- * @name Main loop
- * @requires jQuery
- */
+* @name Main loop
+* @requires jQuery
+*/
     "use strict";
     var JSONFILEPATH = "path/to/agenda.json";
     var agendaArrayNotSave = [];
@@ -193,5 +274,4 @@ function sortAgenda(agendaArr) {
     }
     HTMLstr = buildHTMLagendaTable(agendaArrayChecked);
     $("#meetings").prepend(HTMLstr);
- 
  
