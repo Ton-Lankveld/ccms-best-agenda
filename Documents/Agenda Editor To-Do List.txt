@@ -34,20 +34,6 @@ function saveJSONtoServer(agendaArr, jsonFilePath) {
     "use strict";
 }
 
-SANATIZE & VALIDATE JSON DATA
-
-/**
-* @function
-* @name filterValidateMeetingArray
-* @description Filter and validate the strings of one meeting
-* @param {array} meetingArray - The meeting parameters with input strings of: start, end, onderwerp, subject, groep, group, location, contact and email
-* @return {array} The clean strings
-*/
-function filterValidateMeetingArray(meetingArray) {
-    "use strict";
---TvL--
-}
-
 EDIT OR ADD MEETING
 
 /**
