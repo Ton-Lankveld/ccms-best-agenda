@@ -2,7 +2,7 @@
  * @name Agenda Editor
  * @description Edit the JSON file with the data of the Computer Club Medical Systems (CCMS) meetings.
  * @author Ton van Lankveld (ton.van.lankveld@philips.com)
- * @version 0.0.1 (2016-03-24)
+ * @version 0.0.1 (2016-04-03)
  *
  * Used library: jQuery 1.11.3 (http://jquery.com/)
  *               jQuery plugin: jquery.json 2.5.1 (https://github.com/krinkle/jquery-json)
@@ -191,8 +191,8 @@ function buildHTMLagendaTable(agendaArray) {
     while (i < NoR) {
         HTMLrowOdd = "";
         HTMLrowEven = "";
-        bttnEdit = "<button id=\'edit" + (i+1) +  "\' type=\'button\'>Wijzig</button>";
-        bttnDel = "<button id=\'del" + (i+1) +  "\' type=\'button\'>Verwijder</button>";
+        bttnEdit = "<button type=\'button\' class=\'edit\'>Wijzig</button>";
+        bttnDel = "<button type=\'button\' class=\'del'>Verwijder</button>";
         meetingIso8601Str = (agendaArray[i].start).substring(0,10);
         meetingDateStr = iso8601toStringNl(meetingIso8601Str);
         SaST = (agendaArray[i].start).substring(11,16) + " - " + (agendaArray[i].end).substring(11,16) + " uur";
