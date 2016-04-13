@@ -2,7 +2,7 @@
  * @name Agenda Editor
  * @description Edit the JSON file with the data of the Computer Club Medical Systems (CCMS) meetings.
  * @author Ton van Lankveld (ton.van.lankveld@philips.com)
- * @version 0.0.1 (2016-04-05)
+ * @version 0.0.1 (2016-04-07)
  *
  * Used library: jQuery 1.11.3 (http://jquery.com/)
  *               jQuery plugin: jquery.json 2.5.1 (https://github.com/krinkle/jquery-json)
@@ -171,7 +171,7 @@ function filterValidateMeetingObject(meetingObj) {
 * @param {boolean} allowButtons - Place Edit and Delete buttons in table
 * @returns {string} HTMLout
 */
-function buildHTMLagendaTable(agendaArray) {
+function buildHTMLagendaTable(agendaArray, allowButtons) {
     "use strict";
     var HTMLout = "";
     var HTMLtableBegin = "<table>\n<caption>Data van de komende bijeenkomsten</caption>\n<thead>\n<tr><th></th><th scope=\"col\">Datum</th><th scope=\"col\">Tijd</th><th scope=\"col\">Onderwerp</th><th scope=\"col\">Groep</th><th scope=\"col\">Locatie</th><th scope=\"col\">Contactpersoon</th><th></th></tr>\n</thead>\n<tbody>";
@@ -188,7 +188,7 @@ function buildHTMLagendaTable(agendaArray) {
     var SaST = ""; // Start and Stop Time of meeting
 
     var NoR = agendaArray.length; // Number of Rows
-    if (typeof allowButtons !== "boolean") {
+    if ((allowButtons !== true) && (allowButtons !== false)) {
         allowButtons = false;
     }
     var i = 0; // Row number
