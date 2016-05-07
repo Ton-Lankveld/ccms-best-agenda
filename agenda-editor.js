@@ -2,7 +2,7 @@
  * @name Agenda Editor
  * @description Edit the JSON file with the data of the Computer Club Medical Systems (CCMS) meetings.
  * @author Ton van Lankveld (ton.van.lankveld@philips.com)
- * @version 0.0.1 (2016-04-07)
+ * @version 0.0.1 (2016-04-21)
  *
  * Used library: jQuery 1.11.3 (http://jquery.com/)
  *               jQuery plugin: jquery.json 2.5.1 (https://github.com/krinkle/jquery-json)
@@ -18,7 +18,7 @@
 * @returns None
 */
 function blinkServerIndicator(status) {
-    "use strict"
+    "use strict";
     if ((status === 'ok') || (status === 'fault')) {
         var trans = $('#ServerIndicator').addClass(status);
         setTimeout(function() {
@@ -107,7 +107,7 @@ function filterValidateMeetingObject(meetingObj) {
     
     if (meetingObj.hasOwnProperty('start')) {
         var startClean = filterValidateIso8601(meetingObj.start);
-        if ((startClean !== "") && (startClean !== NaN) && (startClean !== undefined)) {
+        if (startClean !== "") {
             cleanObj.start = startClean;
         }
     }
@@ -165,6 +165,28 @@ function filterValidateMeetingObject(meetingObj) {
 
 /**
 * @function
+* @name iso8601toStringNl
+* @description Convert ISO8601 string to a readable Dutch date, like; Ma 21 dec 2015
+* @param {string} iso8601Str - Date in ISO8601 format; yyyy-mm-ddThh:mm:ss
+* @returns {string} outStr
+*/
+function iso8601toStringNl(iso8601Str) {
+    "use strict";
+    var MONTHS = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
+    var DAYOFTHEWEEK = ["Zo", "Ma", "Di", "Wo", "Do", "Vr", "Za"];
+    var outStr = "";
+    
+    var yearInt = parseInt(iso8601Str.substring(0,4));
+    var monthInt = parseInt(iso8601Str.substring(5,7));
+    var dayInt = parseInt(iso8601Str.substring(8,10));
+    var d = new Date(yearInt, (monthInt-1), dayInt);
+    var dayOfTheWeekInt = d.getDay();
+    outStr = DAYOFTHEWEEK[dayOfTheWeekInt] + " " + dayInt + " " + MONTHS[(monthInt-1)] + " " + yearInt;
+    return outStr;
+}
+
+/**
+* @function
 * @name buildHTMLagendaTable
 * @description Build the HTML agenda table, with or without the Edit and Delete buttons
 * @param {array} agendaArray - Matrix with the data of the meetings
@@ -217,7 +239,7 @@ function buildHTMLagendaTable(agendaArray, allowButtons) {
 * @description Delete one row of the agenda
 * @param {array} agendaArray - Matrix with the data of the meetings
 * @param {int} rowNumber - Number of row to be deleted
-* @returns {string} agendaArray or EMPTYARRAY
+* @returns {array} agendaArray or EMPTYARRAY
 */
 function deleteMeeting(agendaArray, rowNumber) {
     "use strict";
@@ -254,29 +276,69 @@ function sortAgenda(agendaArr) {
     return agendaArr;
 }
 
+/**
+* @function
+* @name delMeetingMode
+* @description Delete one row of the agenda, rebuild agenda table
+* @param {array} agendaArray - Matrix with the data of the meetings
+* @return {array} newArray - agendaArray or empty array
+*/
+function delMeetingMode() {
+    "use strict";
+    var delRowNumber = 1;  // 2nd row
+    var newArray = [];
+    var allowButtons = true;
+    
+    alert( "Delete row mode active" );
+    newArray = deleteMeeting(agendaArray, delRowNumber);
+    buildHTMLagendaTable(newArray, allowButtons);
+}
+
 
 /**
 * @name Main loop
 * @requires jQuery
 */
-    "use strict";
-    var JSONFILEPATH = "path/to/agenda.json";
-    var agendaArrayNotSave = [];
-    var agendaArrayLoadError = [{start:"",end:"",onderwerp:"De agenda wordt niet van de server opgehaald. Wacht een maar minuten en laad de Editor pagina dan opnieuw.<br>Als het probleem aanhoudt, neem dan contact op met Ton.",subject:"",groep:"",group:"",location:"",contact:"Ton van Lankveld",email:"websites@ccms-best.nl"}];
-    var agendaArrayChecked = [];
-    var meetingArray = [];
+        var agendaArray = [
+    {
+        "start":"2016-12-21T10:30:00",
+        "end":"2016-12-21T12:00:00",
+        "onderwerp":"Energiemonitor V2 en vervolg project",
+        "subject":"Energy monitor V2 and next project",
+        "groep":"Microcontrollers",
+        "group":"Micro Controllers",
+        "location":"QCC2",
+        "contact":"Kees Pompe",
+        "email":"ucontrollers@ccms-best.nl"
+      },
+      {
+        "start":"2016-12-21T12:00:00",
+        "end":"2016-12-21T13:00:00",
+        "onderwerp":"Verkoop en Uitleen",
+        "subject":"Sales and Lending",
+        "groep":"QCC",
+        "group":"QCC",
+        "location":"QCC",
+        "contact":"",
+        "email":"info@ccms-best.nl"
+      },
+      {
+        "start":"2016-12-21T13:00:00",
+        "end":"2016-12-21T13:30:00",
+        "onderwerp":"",
+        "subject":"",
+        "groep":"Pensionados",
+        "group":"Pensionados",
+        "location":"QCC2",
+        "contact":"Henry Boudewijns",
+        "email":"pensionados@ccms-best.nl"
+    }
+    ];
     var HTMLstr = "";
   
     $("section.error").hide();
-    agendaArrayNotSave = loadJSONfromServer(JSONFILEPATH);
-    if (!agendaArrayNotSave) {
-        agendaArrayChecked = agendaArrayLoadError;
-    } else {
-        // Sanatize and validate uploaded agenda data
-        for (var i in agendaArrayNotSave) {
-            meetingArray = agendaArrayNotSave[i];
-            agendaArrayChecked[i] = filterValidateMeetingArray(meetingArray);
-        }
-    }
-    HTMLstr = buildHTMLagendaTable(agendaArrayChecked);
+    
+    HTMLstr = buildHTMLagendaTable(agendaArray, true);
     $("#meetings").prepend(HTMLstr);
+    // Button events
+    $("table button.del").on("click", agendaArray, delMeetingMode);
