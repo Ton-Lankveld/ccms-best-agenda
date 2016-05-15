@@ -2,7 +2,7 @@
  * @name Agenda Editor
  * @description Edit the JSON file with the data of the Computer Club Medical Systems (CCMS) meetings.
  * @author Ton van Lankveld (ton.van.lankveld@philips.com)
- * @version 0.0.1 (2016-04-21)
+ * @version 0.0.1 (2016-05-15)
  *
  * Used library: jQuery 1.11.3 (http://jquery.com/)
  *               jQuery plugin: jquery.json 2.5.1 (https://github.com/krinkle/jquery-json)
@@ -278,20 +278,94 @@ function sortAgenda(agendaArr) {
 
 /**
 * @function
-* @name delMeetingMode
-* @description Delete one row of the agenda, rebuild agenda table
-* @param {array} agendaArray - Matrix with the data of the meetings
+* @name addMeetingMode
+* @description Add one row to the agenda, rebuild agenda table
+* @requires buildHTMLagendaTable()
+* @param {array} agendaArr - Matrix with the data of the meetings
 * @return {array} newArray - agendaArray or empty array
 */
-function delMeetingMode() {
+function addMeetingMode(agendaArr) {
+    "use strict";
+    var newArray = [];
+	var htmlStr = "";
+    
+    if (event.which !== 13) { // 13 = Enter key
+        return
+    }
+    alert( "Add row mode active" );
+    // newArray = addMeeting(agendaArray);
+    htmlStr = buildHTMLagendaTable(newArray, false);
+    return = newArray;
+}
+
+/**
+* @function
+* @name sortAgendaMode
+* @description Sort the agenda, rebuild agenda table
+* @requires sortAgenda()
+* @requires buildHTMLagendaTable()
+* @param {array} agendaArr - Matrix with the data of the meetings
+* @return {array} newArray - agendaArr or empty array
+*/
+function sortAgendaMode(agendaArr) {
+    "use strict";
+    var newArray = [];
+    var htmlStr = "";
+    
+    if (event.which !== 13) { // 13 = Enter key
+        return
+    }
+    newArray = sortAgenda(agendaArr);
+    htmlStr = buildHTMLagendaTable(newArray, true);
+    $("#meetings table").replaceWith(HTMLstr);
+    return = newArray;
+}
+
+/**
+* @function
+* @name editMeetingMode
+* @description Edit one row of the agenda, rebuild agenda table
+* @requires buildHTMLagendaTable()
+* @param {array} agendaArr - Matrix with the data of the meetings
+* @return {array} newArray - agendaArr or empty array
+*/
+function editMeetingMode(agendaArr) {
+    "use strict";
+    var editRowNumber = 1;  // 2nd row
+    var newArray = [];
+	var htmlStr = "";
+    
+    if (event.which !== 13) { // 13 = Enter key
+        return
+    }
+    alert( "Edit row mode active" );
+    // newArray = editMeeting(agendaArr, delRowNumber);
+    htmlStr = buildHTMLagendaTable(newArray, false);
+    return = newArray;
+}
+
+/**
+* @function
+* @name delMeetingMode
+* @description Delete one row of the agenda, rebuild agenda table
+* @requires deleteMeeting()
+* @requires buildHTMLagendaTable()
+* @param {array} agendaArr - Matrix with the data of the meetings
+* @return {array} newArray - agendaArr or empty array
+*/
+function delMeetingMode(agendaArr) {
     "use strict";
     var delRowNumber = 1;  // 2nd row
     var newArray = [];
-    var allowButtons = true;
+    var htmlStr = "";
     
+    if (event.which !== 13) { // 13 = Enter key
+        return
+    }
     alert( "Delete row mode active" );
-    newArray = deleteMeeting(agendaArray, delRowNumber);
-    buildHTMLagendaTable(newArray, allowButtons);
+    newArray = deleteMeeting(agendaArr, delRowNumber);
+    htmlStr = buildHTMLagendaTable(newArray, true);
+    return = newArray;
 }
 
 
@@ -299,7 +373,7 @@ function delMeetingMode() {
 * @name Main loop
 * @requires jQuery
 */
-        var agendaArray = [
+        var agendaArray1 = [
     {
         "start":"2016-12-21T10:30:00",
         "end":"2016-12-21T12:00:00",
@@ -334,11 +408,49 @@ function delMeetingMode() {
         "email":"pensionados@ccms-best.nl"
     }
     ];
+    var agendaArray2 = [
+    {
+        "start":"2016-12-21T10:30:00",
+        "end":"2016-12-21T12:00:00",
+        "onderwerp":"Energiemonitor V2 en vervolg project",
+        "subject":"Energy monitor V2 and next project",
+        "groep":"Microcontrollers",
+        "group":"Micro Controllers",
+        "location":"QCC2",
+        "contact":"Kees Pompe",
+        "email":"ucontrollers@ccms-best.nl"
+      },
+      {
+        "start":"2016-12-21T13:00:00",
+        "end":"2016-12-21T13:30:00",
+        "onderwerp":"",
+        "subject":"",
+        "groep":"Pensionados",
+        "group":"Pensionados",
+        "location":"QCC2",
+        "contact":"Henry Boudewijns",
+        "email":"pensionados@ccms-best.nl"
+      },
+      {
+        "start":"2016-12-21T12:00:00",
+        "end":"2016-12-21T13:00:00",
+        "onderwerp":"Verkoop en Uitleen",
+        "subject":"Sales and Lending",
+        "groep":"QCC",
+        "group":"QCC",
+        "location":"QCC",
+        "contact":"",
+        "email":"info@ccms-best.nl"
+      }
+    ];
     var HTMLstr = "";
   
     $("section.error").hide();
     
-    HTMLstr = buildHTMLagendaTable(agendaArray, true);
+    HTMLstr = buildHTMLagendaTable(agendaArray2, true);
     $("#meetings").prepend(HTMLstr);
     // Button events
-    $("table button.del").on("click", agendaArray, delMeetingMode);
+    $("table button.del").on("click keypress", agendaArray2, delMeetingMode);
+    $("table button.edit").on("click keypress", agendaArray2, editMeetingMode);
+    $("button#add").on("click keypress", agendaArray2, addMeetingMode);
+    $("button#sort").on("click keypress", agendaArray2, sortAgendaMode);
