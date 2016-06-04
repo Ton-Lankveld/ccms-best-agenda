@@ -1,7 +1,7 @@
 Calender Editor Application spec
 
 Author: Ton van Lankveld
-Version: 2016-05-31
+Version: 2016-06-04
 
 
 PURPOSE
@@ -108,4 +108,4 @@ If Undo button is pressed:
 	Send JSON file to server (AJAX)
 Message are shown in the status line.
     Type of message are: status | warning | error
-    Format of message: {string} '<type>:<text>'
+    Format of message: {string} "<type>|<text>"
