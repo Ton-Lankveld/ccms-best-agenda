@@ -20,11 +20,43 @@
     </ul>
   </nav>
   <article>
+    <section id="statusLine">
+    </section>
     <h3>Agenda Editor</h3>
     <section class="error">
       <p>Als u de agenda wilt zien en wijzigen, zet JavaScript dan aan in uw browser.</p>
     </section>
     <section id="editadd">
+    <h4>Bijeenkomst Toevoegen</h4>
+      <form>
+        <div id="datetime">
+          <p><label>Datum<input id="datelocal" type="date"></label></p>
+          <p><label>Starttijd<input id="timelocal-start" type="time"></label></p>
+          <p><label>Eindtijd<input id="timelocal-end" type="time"></label></p>
+        </div>
+        <fieldset>
+          <legend>Onderwerp</legend>
+          <p><label>nl<input id="subjectnl" type="text"></label></p>
+          <p><label>en-US<input id="subjecten" type="text"></label></p>
+      </fieldset>
+      <p><label>Groep:
+      <select name="select">
+        <option value="empty"></option>
+        <option value="common">Bestuur</option>
+        <option value="photo">Fotoclub</option>
+        <option value="ucontrollers">Microcontrollers</option>
+        <option value="shop">QCC</option>
+        <option value="retairment">Pensionados</option>
+        <option value="video">Videoclub</option>
+        <option value="web">Websites</option>
+      </select></label></p>
+      <p><label>Locatie<input id="location" type="text"></label></p>
+      <div id="nameemail">
+        <p><label>Contactpersoon<input id="contact" type="text"></label></p>
+        <p><label>E-mail<input id="email" type="email"></label></p>
+      </div>
+      <p><button id="insert">Invoegen</button><button id="cancel">Afbreken</button></p>
+      </form>
     </section>
     <section id="permbuttons">
       <button id="add" type="button">Nieuwe bijeenkomst</button>
