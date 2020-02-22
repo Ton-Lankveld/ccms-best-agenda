@@ -2,9 +2,9 @@
 namespace agendaPubliekEn;
 
 /**
- * Agenda viewer for English public section of www.ccms-best.nl
+ * Agenda viewer for English public section of ccms-best.nl
  *
- * @version 1.0.1
+ * @version 1.0.2
  * @author Ton van Lankveld
  * @license MIT
  */
@@ -15,7 +15,7 @@ namespace agendaPubliekEn;
  * @return array The content of the JSON file or empty if the file is not found
  */
 function loadJSONfile() {
-  $PATHDATAFILE = 'path/to/agenda.json';
+  $PATHDATAFILE = 'data/ccms-agenda.json';
   $outArray = [];
   if (file_exists($PATHDATAFILE)) {
     $handle = fopen($PATHDATAFILE, "r");
@@ -224,64 +224,57 @@ function agendaViewer_Main() {
 
 ?>
 
-<!DOCTYPE HTML PUBLIC
-  "-//W3C//DTD HTML 4.01//EN"
-  "http://www.w3.org/TR/html4/strict.dtd">
+<!doctype html>
 <html dir="ltr" lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta charset="utf-8">
   <meta name="creator" content="Ton v. Lankveld">
   <meta name="description" content="Upcoming events of Computer Club Medical Systems.">
   <title>CCMS - Agenda</title>
-  <link rel="stylesheet" href="stijl/algemeen_screen.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="stijl/algemeen_screen_html5.css" media="screen">
   <link rel="stylesheet" href="stijl/algemeen_print.css" type="text/css" media="print">
   <link rel="icon" href="stijl/favicon.png" type="image/png">
 </head>
 <body>
-  <div id="header">
+  <header>
     <h1>Computer Club Medical Systems</h1>
-    <h2>Public</h2>
-  </div> <!-- end of Header -->
-  
-  <div id="nav">
-  <ul>
-   <li><a href="index_en.html" title="Introduction">Intro</a></li>
-	<li id="activePage">Agenda</li>
-	<li><a href="leden_en.html" title="Log-in screen">Members</a></li>
-	<li><a href="word_lid_en.html" title="Become a CCMS-member">Join us!</a></li>
-	<li><a href="activiteiten_en.html" title="Activities which we organize">Activities</a></li>
-	<li><a href="over_ons_en.html" title="Background information">About us</a></li>
-	<li><a href="contact_en.html" title="Contact information">Contact</a></li>
-	<li id="languages" lang="nl"><a href="agenda_nl.php" title="Nederlandse versie"><img src="stijl/vlag_nl.png" width="45px" height="30px" alt="Nederlandse versie" title="Nederlandse versie"></a></li>
-  </ul>
-  </div> <!-- end of nav -->
-  
-  <div id="content">
-  <h3>Agenda</h3>
-  <p>These activities are only for members and guests of Computer Club Medical Systems. Or otherwise specified.</p>
-  
-<table>
-  <caption>Upcoming Events</caption>
-  <thead>
-    <tr>
-      <th scope="col">Date</th>
-      <th scope="col">Time</th>
-      <th scope="col">Subject</th>
-      <th scope="col">Group</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php
-      echo agendaViewer_Main();
-    ?>
-  </tbody>
-</table>
-
-  </div> <!-- end of the content -->
-  
-  <div id="footer">
-    <p>Content on this site is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc/3.0/">Creative Commons License</a><span class="url"> (https://creativecommons.org/licenses/by-nc/3.0/)</span>.</p>
-  </div> <!-- end of footer -->
-  
+	<h2>Public</h2>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="index_en.html" title="Introduction">Intro</a></li>
+	  <li id="activePage">Agenda</li>
+	  <li><a href="leden_en.html" title="Log-in screen">Members</a></li>
+	  <li><a href="word_lid_en.html" title="Become a CCMS-member">Join us!</a></li>
+	  <li><a href="activiteiten_en.html" title="Activities which we organize">Activities</a></li>
+	  <li><a href="over_ons_en.html" title="Background information">About us</a></li>
+	  <li><a href="contact_en.html" title="Contact information">Contact</a></li>
+	  <li><a href="temp_jubileum_en.html" title="25 year Anniversary">25 year Anniversary</a></li>
+	  <li id="languages" lang="nl"><a href="agenda_nl.php" title="Nederlandse versie"><img src="stijl/vlag_nl.png" width="45px" height="30px" alt="Nederlandse versie" title="Nederlandse versie"></a></li>
+    </ul>
+  </nav>
+  <article>
+    <h3>Agenda</h3>
+    <p>These activities are only for members and guests of Computer Club Medical Systems. Or otherwise specified.</p>
+    <table>
+      <caption>Upcoming Events</caption>
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Time</th>
+          <th scope="col">Subject</th>
+          <th scope="col">Group</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+          echo agendaViewer_Main();
+        ?>
+      </tbody>
+    </table>
+  </article>
+  <footer>
+    <p>Content on this site is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_US">Creative Commons License</a><span class="url"> (http://creativecommons.org/licenses/by-nc/3.0/deed.en_US)</span>.</p>
+  </footer>
 </body>
 </html>
